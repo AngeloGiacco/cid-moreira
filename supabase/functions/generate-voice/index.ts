@@ -43,7 +43,9 @@ serve(async (req) => {
     // Step 2: Upload audio to Supabase Storage
     const { data: uploadData, error: uploadError } = await supabase.storage
       .from("love_notes_audio")
-      .upload(`${Date.now()}-love-note.mp3`, buffer);
+      .upload(`${Date.now()}-love-note.mp3`, buffer, {
+        contentType: "audio/mpeg",
+      });
 
     if (uploadError) throw uploadError;
 

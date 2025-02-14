@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2, Heart, Share2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useQuery } from "@tanstack/react-query";
 
 interface FormData {
   message: string;
@@ -28,28 +27,16 @@ const Index = () => {
     try {
       setIsGenerating(true);
       
-      // Step 1: Generate audio using ElevenLabs
-      const response = await fetch("https://api.elevenlabs.io/v1/text-to-speech/EXAVITQu4vr4xnSDxMaL/stream", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "xi-api-key": process.env.ELEVEN_LABS_API_KEY!,
-        },
-        body: JSON.stringify({
-          text: data.message,
-          model_id: "eleven_multilingual_v2",
-          voice_settings: {
-            stability: 0.5,
-            similarity_boost: 0.75,
-          },
-        }),
+      // Step 1: Generate audio using Edge Function
+      const response = await supabase.functions.invoke('generate-voice', {
+        body: { message: data.message }
       });
 
-      if (!response.ok) {
+      if (response.error) {
         throw new Error("Failed to generate audio");
       }
 
-      const audioBlob = await response.blob();
+      const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
       const file = new File([audioBlob], "love-note.mp3", { type: "audio/mpeg" });
 
       // Step 2: Upload audio to Supabase Storage
@@ -140,7 +127,7 @@ const Index = () => {
           >
             {isGenerating ? (
               <>
-                <Loader2 className="animate-spin" />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Generating...
               </>
             ) : (

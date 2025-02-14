@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
@@ -26,45 +25,20 @@ const Index = () => {
   const onSubmit = async (data: FormData) => {
     try {
       setIsGenerating(true);
-      
+
       // Step 1: Generate audio using Edge Function
-      const response = await supabase.functions.invoke('generate-voice', {
-        body: { message: data.message }
+      const response = await supabase.functions.invoke("generate-voice", {
+        body: { message: data.message },
       });
 
       if (response.error) {
         throw new Error("Failed to generate audio");
       }
-
-      const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
-      const file = new File([audioBlob], "love-note.mp3", { type: "audio/mpeg" });
-
-      // Step 2: Upload audio to Supabase Storage
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from("love_notes_audio")
-        .upload(`${Date.now()}-love-note.mp3`, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: publicUrl } = supabase.storage
-        .from("love_notes_audio")
-        .getPublicUrl(uploadData.path);
-
-      // Step 3: Create love note record
-      const { data: noteData, error: noteError } = await supabase
-        .from("love_notes")
-        .insert({
-          message: data.message,
-          audio_url: publicUrl.publicUrl,
-        })
-        .select()
-        .single();
-
-      if (noteError) throw noteError;
+      const { noteData, publicUrl } = response.data;
 
       setShareId(noteData.share_id);
       setAudioUrl(publicUrl.publicUrl);
-      
+
       toast({
         title: "Love note created!",
         description: "Your love note is ready to be shared.",
@@ -91,15 +65,23 @@ const Index = () => {
     });
   };
 
-  const { register, handleSubmit, formState: { errors } } = form;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = form;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-purple-50">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg">
         <div className="text-center space-y-2">
           <Heart className="w-12 h-12 text-pink-500 mx-auto" />
-          <h1 className="text-3xl font-bold text-gray-900">Create a Love Note</h1>
-          <p className="text-gray-600">Write a message and we'll turn it into a beautiful voice message</p>
+          <h1 className="text-3xl font-bold text-gray-900">
+            Create a Love Note
+          </h1>
+          <p className="text-gray-600">
+            Write a message and we'll turn it into a beautiful voice message
+          </p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -142,7 +124,7 @@ const Index = () => {
               <source src={audioUrl} type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
-            
+
             <Button
               onClick={copyShareLink}
               variant="outline"

@@ -84,6 +84,12 @@ const Index = () => {
           </p>
         </div>
 
+        <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
+          <p className="text-sm text-amber-800">
+            ⚠️ Please note: Love notes are public and can be accessed by anyone with the note ID. Do not include personal information, addresses, or sensitive details in your messages.
+          </p>
+        </div>
+
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
             <Textarea

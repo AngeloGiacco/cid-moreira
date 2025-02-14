@@ -77,7 +77,15 @@ const Index = () => {
         <div className="text-center space-y-2">
           <Heart className="w-12 h-12 text-pink-500 mx-auto" />
           <h1 className="text-3xl font-bold text-gray-900">
-            Create a Love Note
+            Create a Love Voice Note with{" "}
+            <a
+              href="https://elevenlabs.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-pink-500 hover:text-pink-600"
+            >
+              ElevenLabs
+            </a>
           </h1>
           <p className="text-gray-600">
             Write a message and we'll turn it into a beautiful voice message
@@ -86,7 +94,9 @@ const Index = () => {
 
         <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
           <p className="text-sm text-amber-800">
-            ⚠️ Please note: Love notes are public and can be accessed by anyone with the note ID. Do not include personal information, addresses, or sensitive details in your messages.
+            ⚠️ Please note: Love notes are public and can be accessed by anyone
+            with the note ID. Do not include personal information, addresses, or
+            sensitive details in your messages.
           </p>
         </div>
 

@@ -27,7 +27,7 @@ serve(async (req) => {
   try {
     const { message } = await req.json();
 
-    const audio = await client.textToSpeech.convert("JBFqnCBsd6RMkjVDRZzb", {
+    const audio = await client.textToSpeech.convert("R5uRN6nYuEgI0ORJtaWr", {
       model_id: "eleven_multilingual_v2",
       output_format: "mp3_44100_128",
       text: message,

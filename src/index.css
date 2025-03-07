@@ -96,6 +96,8 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-h-screen;
+    background-image: linear-gradient(to bottom right, #EFF6FF, #FAF5FF);
+    background-attachment: fixed;
   }
 }

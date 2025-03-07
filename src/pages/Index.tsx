@@ -74,7 +74,7 @@ const Index = () => {
 
   const copyShareLink = async () => {
     if (!shareId) return;
-    const shareLink = `${window.location.origin}/note/${shareId}`;
+    const shareLink = `${window.location.origin}/mensagem/${shareId}`;
     await navigator.clipboard.writeText(shareLink);
     toast({
       title: "Link copiado!",
@@ -84,7 +84,7 @@ const Index = () => {
 
   const sendEmail = () => {
     if (!shareId) return;
-    const shareLink = `${window.location.origin}/note/${shareId}`;
+    const shareLink = `${window.location.origin}/mensagem/${shareId}`;
     const emailSubject = "Uma mensagem especial para você via The God's Voice";
     const emailBody = `Olá ${form.getValues("nomeDestinatario")},\n\n`
       + `${form.getValues("seuNome")} enviou uma mensagem especial para você através do The God's Voice, `

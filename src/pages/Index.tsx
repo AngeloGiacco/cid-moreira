@@ -43,9 +43,16 @@ const Index = () => {
     try {
       setIsGenerating(true);
 
-      // Step 1: Generate audio using Edge Function (only using the message)
+      // Send all form data to the generate-voice function
       const response = await supabase.functions.invoke("generate-voice", {
-        body: { message: data.mensagem },
+        body: {
+          message: data.mensagem,
+          sender: data.seuNome,
+          receiver: data.nomeDestinatario,
+          passageType: data.tipoPassagem,
+          senderEmail: data.seuEmail,
+          receiverEmail: data.emailDestinatario
+        },
       });
 
       if (response.error) {
@@ -115,6 +122,29 @@ const Index = () => {
           <p className="text-gray-600">
             Preencha o formulário abaixo para enviar uma mensagem inspirada nas Palavras de Deus para um amigo querido ou parente
           </p>
+          
+          <ul className="flex items-center justify-center gap-x-8 mt-4">
+            <li>
+              <a
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-gray-900 text-white px-6 py-2 hover:bg-gray-800 transition-colors"
+                href="https://play.google.com/store/apps/details?id=io.elevenlabs.readerapp"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Baixar para Android
+              </a>
+            </li>
+            <li>
+              <a
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
+                href="https://apps.apple.com/us/app/elevenlabs-reader-ai-audio/id6479373050"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Baixar para iOS
+              </a>
+            </li>
+          </ul>
         </div>
 
         <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">

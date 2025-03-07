@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { Loader2, Heart, Share2 } from "lucide-react";
+import { Loader2, Heart, Share2, Mail } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Select,
@@ -82,6 +82,21 @@ const Index = () => {
     });
   };
 
+  const sendEmail = () => {
+    if (!shareId) return;
+    const shareLink = `${window.location.origin}/note/${shareId}`;
+    const emailSubject = "Uma mensagem especial para você via The God's Voice";
+    const emailBody = `Olá ${form.getValues("nomeDestinatario")},\n\n`
+      + `${form.getValues("seuNome")} enviou uma mensagem especial para você através do The God's Voice, `
+      + `um serviço que transforma mensagens em áudio usando tecnologia ElevenLabs.\n\n`
+      + `Acesse sua mensagem aqui: ${shareLink}\n\n`
+      + `Com carinho,\nThe God's Voice`;
+
+    window.location.href = `mailto:${form.getValues("emailDestinatario")}`
+      + `?subject=${encodeURIComponent(emailSubject)}`
+      + `&body=${encodeURIComponent(emailBody)}`;
+  };
+
   const {
     register,
     handleSubmit,
@@ -104,8 +119,8 @@ const Index = () => {
 
         <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
           <p className="text-sm text-amber-800">
-            ⚠️ Atenção: As mensagens são públicas e podem ser acessadas por qualquer pessoa
-            com o ID da nota. Não inclua informações pessoais, endereços ou detalhes sensíveis em suas mensagens.
+            Atenção: As mensagens podem ser acessadas por qualquer pessoa
+            com o ID da nota.
           </p>
         </div>
 
@@ -229,14 +244,25 @@ const Index = () => {
               Seu navegador não suporta o elemento de áudio.
             </audio>
 
-            <Button
-              onClick={copyShareLink}
-              variant="outline"
-              className="w-full"
-            >
-              <Share2 className="mr-2" />
-              Copiar Link para Compartilhar
-            </Button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Button
+                onClick={copyShareLink}
+                variant="outline"
+                className="w-full"
+              >
+                <Share2 className="mr-2" />
+                Copiar Link para Compartilhar
+              </Button>
+
+              <Button
+                onClick={sendEmail}
+                variant="outline"
+                className="w-full"
+              >
+                <Mail className="mr-2" />
+                Enviar por E-mail
+              </Button>
+            </div>
           </div>
         )}
       </div>

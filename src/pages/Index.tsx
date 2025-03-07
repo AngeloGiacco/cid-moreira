@@ -5,9 +5,21 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2, Heart, Share2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 interface FormData {
-  message: string;
+  seuNome: string;
+  seuEmail: string;
+  nomeDestinatario: string;
+  emailDestinatario: string;
+  mensagem: string;
+  tipoPassagem: string;
 }
 
 const Index = () => {
@@ -18,7 +30,12 @@ const Index = () => {
 
   const form = useForm<FormData>({
     defaultValues: {
-      message: "",
+      seuNome: "",
+      seuEmail: "",
+      nomeDestinatario: "",
+      emailDestinatario: "",
+      mensagem: "",
+      tipoPassagem: "",
     },
   });
 
@@ -26,13 +43,13 @@ const Index = () => {
     try {
       setIsGenerating(true);
 
-      // Step 1: Generate audio using Edge Function
+      // Step 1: Generate audio using Edge Function (only using the message)
       const response = await supabase.functions.invoke("generate-voice", {
-        body: { message: data.message },
+        body: { message: data.mensagem },
       });
 
       if (response.error) {
-        throw new Error("Failed to generate audio");
+        throw new Error("Falha ao gerar áudio");
       }
       const { noteData, publicUrl } = response.data;
 
@@ -40,14 +57,14 @@ const Index = () => {
       setAudioUrl(publicUrl.publicUrl);
 
       toast({
-        title: "Love note created!",
-        description: "Your love note is ready to be shared.",
+        title: "Mensagem criada com sucesso!",
+        description: "Sua mensagem está pronta para ser compartilhada.",
       });
     } catch (error) {
       console.error("Error:", error);
       toast({
-        title: "Error",
-        description: "Failed to create love note. Please try again.",
+        title: "Erro",
+        description: "Falha ao criar mensagem. Por favor, tente novamente.",
         variant: "destructive",
       });
     } finally {
@@ -60,8 +77,8 @@ const Index = () => {
     const shareLink = `${window.location.origin}/note/${shareId}`;
     await navigator.clipboard.writeText(shareLink);
     toast({
-      title: "Link copied!",
-      description: "Share this link with your loved one.",
+      title: "Link copiado!",
+      description: "Compartilhe este link com seu amigo ou parente.",
     });
   };
 
@@ -69,67 +86,138 @@ const Index = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = form;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-purple-50">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
+      <div className="w-full max-w-2xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
         <div className="text-center space-y-2">
-          <Heart className="w-12 h-12 text-pink-500 mx-auto" />
+          <Heart className="w-12 h-12 text-blue-500 mx-auto" />
           <h1 className="text-3xl font-bold text-gray-900">
-            Create a Love Voice Note with{" "}
-            <a
-              href="https://elevenlabs.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-pink-500 hover:text-pink-600"
-            >
-              ElevenLabs
-            </a>
+            Mensagem do The God's Voice
           </h1>
           <p className="text-gray-600">
-            Write a message and we'll turn it into a beautiful voice message
+            Preencha o formulário abaixo para enviar uma mensagem inspirada nas Palavras de Deus para um amigo querido ou parente
           </p>
         </div>
 
         <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
           <p className="text-sm text-amber-800">
-            ⚠️ Please note: Love notes are public and can be accessed by anyone
-            with the note ID. Do not include personal information, addresses, or
-            sensitive details in your messages.
+            ⚠️ Atenção: As mensagens são públicas e podem ser acessadas por qualquer pessoa
+            com o ID da nota. Não inclua informações pessoais, endereços ou detalhes sensíveis em suas mensagens.
           </p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700">Seu Nome</label>
+              <input
+                {...register("seuNome", { required: "Por favor, insira seu nome" })}
+                className="w-full rounded-md border border-gray-300 p-2"
+                placeholder="Seu nome completo"
+              />
+              {errors.seuNome && (
+                <p className="text-sm text-red-500">{errors.seuNome.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700">Seu E-mail</label>
+              <input
+                {...register("seuEmail", { 
+                  required: "Por favor, insira seu e-mail",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "E-mail inválido"
+                  }
+                })}
+                className="w-full rounded-md border border-gray-300 p-2"
+                placeholder="seu@email.com"
+              />
+              {errors.seuEmail && (
+                <p className="text-sm text-red-500">{errors.seuEmail.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700">Nome do Destinatário</label>
+              <input
+                {...register("nomeDestinatario", { required: "Por favor, insira o nome do destinatário" })}
+                className="w-full rounded-md border border-gray-300 p-2"
+                placeholder="Nome do destinatário"
+              />
+              {errors.nomeDestinatario && (
+                <p className="text-sm text-red-500">{errors.nomeDestinatario.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700">E-mail do Destinatário</label>
+              <input
+                {...register("emailDestinatario", {
+                  required: "Por favor, insira o e-mail do destinatário",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "E-mail inválido"
+                  }
+                })}
+                className="w-full rounded-md border border-gray-300 p-2"
+                placeholder="destinatario@email.com"
+              />
+              {errors.emailDestinatario && (
+                <p className="text-sm text-red-500">{errors.emailDestinatario.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700">
+                Tipos de Passagens Bíblicas
+              </label>
+              <Select onValueChange={(value) => setValue("tipoPassagem", value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Escolha um tipo de passagem biblica" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="salmos">Salmos</SelectItem>
+                  <SelectItem value="oracao">Oração</SelectItem>
+                  <SelectItem value="versiculo">Versículo Bíblico</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
           <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">Sua Mensagem</label>
             <Textarea
-              {...register("message", {
-                required: "Please write a message",
+              {...register("mensagem", {
+                required: "Por favor, escreva uma mensagem",
                 minLength: {
                   value: 10,
-                  message: "Message must be at least 10 characters",
+                  message: "A mensagem deve ter pelo menos 10 caracteres",
                 },
               })}
-              placeholder="Write your love note here..."
+              placeholder="Escreva sua mensagem pessoal aqui..."
               className="min-h-[150px] resize-none"
             />
-            {errors.message && (
-              <p className="text-sm text-red-500">{errors.message.message}</p>
+            {errors.mensagem && (
+              <p className="text-sm text-red-500">{errors.mensagem.message}</p>
             )}
           </div>
 
           <Button
             type="submit"
-            className="w-full bg-pink-500 hover:bg-pink-600"
+            className="w-full bg-blue-600 hover:bg-blue-700"
             disabled={isGenerating}
           >
             {isGenerating ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Generating...
+                Gerando...
               </>
             ) : (
-              "Generate Love Note"
+              "Gerar Mensagem"
             )}
           </Button>
         </form>
@@ -138,7 +226,7 @@ const Index = () => {
           <div className="space-y-4 pt-4 border-t">
             <audio controls className="w-full">
               <source src={audioUrl} type="audio/mpeg" />
-              Your browser does not support the audio element.
+              Seu navegador não suporta o elemento de áudio.
             </audio>
 
             <Button
@@ -147,7 +235,7 @@ const Index = () => {
               className="w-full"
             >
               <Share2 className="mr-2" />
-              Copy Share Link
+              Copiar Link para Compartilhar
             </Button>
           </div>
         )}

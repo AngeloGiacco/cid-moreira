@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { Loader2, Heart, Share2, Mail } from "lucide-react";
+import { Loader2, Heart, Share2, Mail, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Select,
@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { copyToClipboard, shareViaEmail, shareViaWhatsApp } from "@/utils/sharing";
 
 interface FormData {
   seuNome: string;
@@ -81,8 +82,7 @@ const Index = () => {
 
   const copyShareLink = async () => {
     if (!shareId) return;
-    const shareLink = `${window.location.origin}/mensagem/${shareId}`;
-    await navigator.clipboard.writeText(shareLink);
+    const shareLink = await copyToClipboard(shareId);
     toast({
       title: "Link copiado!",
       description: "Compartilhe este link com seu amigo ou parente.",
@@ -91,22 +91,17 @@ const Index = () => {
 
   const sendEmail = () => {
     if (!shareId) return;
-    const shareLink = `${window.location.origin}/mensagem/${shareId}`;
-    const androidLink = "https://play.google.com/store/apps/details?id=io.elevenlabs.readerapp";
-    const iosLink = "https://apps.apple.com/us/app/elevenlabs-reader-ai-audio/id6479373050";
-    const emailSubject = "Uma mensagem especial para você via The God's Voice";
-    const emailBody = `Olá ${form.getValues("nomeDestinatario")},\n\n`
-      + `${form.getValues("seuNome")} enviou uma mensagem especial para você através do The God's Voice, `
-      + `um serviço que transforma mensagens em áudio usando tecnologia ElevenLabs.\n\n`
-      + `Acesse sua mensagem aqui: ${shareLink}\n\n`
-      + `Baixe nosso aplicativo:\n`
-      + `Android: ${androidLink}\n`
-      + `iOS: ${iosLink}\n\n`
-      + `Com carinho,\nThe God's Voice`;
+    shareViaEmail(
+      shareId,
+      form.getValues("emailDestinatario"),
+      form.getValues("nomeDestinatario"),
+      form.getValues("seuNome")
+    );
+  };
 
-    window.location.href = `mailto:${form.getValues("emailDestinatario")}`
-      + `?subject=${encodeURIComponent(emailSubject)}`
-      + `&body=${encodeURIComponent(emailBody)}`;
+  const shareOnWhatsApp = () => {
+    if (!shareId) return;
+    shareViaWhatsApp(shareId, form.getValues("seuNome"));
   };
 
   const {
@@ -118,14 +113,14 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
-      <div className="w-full max-w-2xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
+      <div className="w-full max-w-4xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
         <div className="text-center space-y-2">
           <Heart className="w-12 h-12 text-blue-500 mx-auto" />
           <h1 className="text-3xl font-bold text-gray-900">
             Recados da Bíblia
           </h1>
           <h3 className="text-xl font-bold text-gray-900">
-            The God’s Voice na voz de Cid Moreira
+            The God's Voice na voz de Cid Moreira
           </h3>
           <p className="text-gray-600">
           Para enviar uma mensagem inspirada na Bíblia a um amigo querido ou a um familiar, preencha o formulário abaixo.
@@ -252,14 +247,14 @@ const Index = () => {
               Seu navegador não suporta o elemento de áudio.
             </audio>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Button
                 onClick={copyShareLink}
                 variant="outline"
                 className="w-full"
               >
                 <Share2 className="mr-2" />
-                Copiar Link para Compartilhar
+                Copiar Link
               </Button>
 
               <Button
@@ -269,6 +264,15 @@ const Index = () => {
               >
                 <Mail className="mr-2" />
                 Enviar por E-mail
+              </Button>
+
+              <Button
+                onClick={shareOnWhatsApp}
+                variant="outline"
+                className="w-full"
+              >
+                <MessageCircle className="mr-2" />
+                Compartilhar no WhatsApp
               </Button>
             </div>
           </div>

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Heart } from "lucide-react";
+import { Heart, Share2, Mail, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
+import { copyToClipboard, shareViaEmail, shareViaWhatsApp } from "@/utils/sharing";
 
-interface LoveNote {
+interface Note {
   message: string;
   audio_url: string | null;
   sender_name: string;
@@ -14,7 +16,7 @@ interface LoveNote {
 const Note = () => {
   const { shareId } = useParams();
   const { toast } = useToast();
-  const [note, setNote] = useState<LoveNote | null>(null);
+  const [note, setNote] = useState<Note | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -50,6 +52,25 @@ const Note = () => {
     }
   }, [shareId, toast]);
 
+  const handleCopyLink = async () => {
+    if (!shareId) return;
+    await copyToClipboard(shareId);
+    toast({
+      title: "Link copiado!",
+      description: "Compartilhe este link com seus amigos.",
+    });
+  };
+
+  const handleEmailShare = () => {
+    if (!shareId) return;
+    shareViaEmail(shareId);
+  };
+
+  const handleWhatsAppShare = () => {
+    if (!shareId) return;
+    shareViaWhatsApp(shareId);
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
@@ -78,7 +99,7 @@ const Note = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg">
+      <div className="w-full max-w-3xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
         <div className="text-center space-y-2">
           <Heart className="w-12 h-12 text-blue-500 mx-auto" />
           <h1 className="text-3xl font-bold text-gray-900">
@@ -112,7 +133,44 @@ const Note = () => {
           )}
         </div>
 
-        <div className="pt-8 border-t text-center space-y-6">          
+        <div className="pt-8 border-t text-center space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <Button
+              onClick={handleCopyLink}
+              variant="outline"
+              className="w-full"
+            >
+              <Share2 className="mr-2" />
+              Copiar Link
+            </Button>
+
+            <Button
+              onClick={handleEmailShare}
+              variant="outline"
+              className="w-full"
+            >
+              <Mail className="mr-2" />
+              Enviar por E-mail
+            </Button>
+
+            <Button
+              onClick={handleWhatsAppShare}
+              variant="outline"
+              className="w-full"
+            >
+              <MessageCircle className="mr-2" />
+              Compartilhar no WhatsApp
+            </Button>
+          </div>
+
+          <div className="mb-4">
+            <a 
+              href="/"
+              className="text-blue-500 hover:text-blue-700 transition-colors"
+            >
+              Gerar uma nova mensagem
+            </a>
+          </div>
           <a 
             href="https://elevenreader.io" 
             target="_blank" 

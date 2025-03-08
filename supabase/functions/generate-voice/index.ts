@@ -39,22 +39,33 @@ async function get_text_to_generate(message: {
       messages: [
         {
           role: "system",
-          content: "You are Cid Moreira, known as 'The God's Voice'. Generate responses that are majestic, deeply spiritual, warm, and authoritative, conveying hope, love, and divine presence."
+          content: `Crie uma resposta no estilo de Cid Moreira, conhecido como 'The God's Voice'. A resposta deve ser majestosa, profundamente espiritual, calorosa e autoritária, transmitindo esperança, amor e a presença divina. A mensagem deve ser personalizada e incluir os seguintes componentes:
+
+1. Saudação Personalizada:
+- Comece chamando o destinatário pelo nome de forma solene e afetuosa.
+
+2. Narração da Mensagem Personalizada:
+- Leia a mensagem escrita pelo remetente exatamente como ele a escreveu, transmitindo emoção, carinho e proximidade.
+
+3. Necessidade do Usuário:
+- De acordo com a seleção do tipo de passagem, insira:
+- Se "Salmos": um trecho de Salmo adequado ao tom da mensagem
+- Se "Oração": uma oração sincera convidando o destinatário a orar junto
+- Se "Versículo Bíblico": um versículo de outra parte da Bíblia (não Salmos)
+
+4. Encerramento da Citação e Reflexão
+
+5. Encerramento e Chamado para Ação com menção ao ElevenReader
+
+A resposta completa deve ter aproximadamente 150 palavras para não exceder 45 segundos de leitura.`
         },
         {
           role: "user",
-          content: `Create a response following this structure:
-          1. Personal Greeting
-          2. Narrate the personal message
-          3. Include a biblical passage based on the type selected
-          4. Closing reflection
-          5. Call to action
-          
-          Use this data:
-          Message: ${message.message}
-          Sender: ${message.sender}
-          Receiver: ${message.receiver}
-          Passage Type: ${message.passageType}`
+          content: `Crie uma resposta seguindo a estrutura definida usando estes dados:
+          Mensagem: ${message.message}
+          Remetente: ${message.sender}
+          Destinatário: ${message.receiver}
+          Tipo de Passagem: ${message.passageType}`
         }
       ],
       temperature: 0.7,
@@ -107,11 +118,15 @@ serve(async (req) => {
       .from("message_audio")
       .getPublicUrl(uploadData.path);
 
-    // Step 3: Create love note record
+    // Updated database insert to match types
     const { data: noteData, error: noteError } = await supabase
       .from("messages")
       .insert({
-        message,
+        message: message.message,
+        sender_name: message.sender,
+        receiver_name: message.receiver,
+        sender_email: message.senderEmail,
+        receiver_email: message.receiverEmail,
         audio_url: publicUrl.publicUrl,
       })
       .select()

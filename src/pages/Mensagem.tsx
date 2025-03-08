@@ -7,6 +7,8 @@ import { useToast } from "@/components/ui/use-toast";
 interface LoveNote {
   message: string;
   audio_url: string | null;
+  sender_name: string;
+  receiver_name: string;
 }
 
 const Note = () => {
@@ -16,14 +18,17 @@ const Note = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    console.log("Effect triggered, shareId:", shareId);
+
     const fetchNote = async () => {
       try {
+        console.log("Fetching note for shareId:", shareId);
         const { data, error } = await supabase
-          .from("love_notes")
-          .select("message, audio_url")
+          .from("messages")
+          .select("message, audio_url, sender_name, receiver_name")
           .eq("share_id", shareId)
           .single();
-
+        console.log("Supabase response:", { data, error });
         if (error) throw error;
         setNote(data);
       } catch (error) {
@@ -40,6 +45,8 @@ const Note = () => {
 
     if (shareId) {
       fetchNote();
+    } else {
+      console.log("No shareId provided");
     }
   }, [shareId, toast]);
 
@@ -75,19 +82,14 @@ const Note = () => {
         <div className="text-center space-y-2">
           <Heart className="w-12 h-12 text-blue-500 mx-auto" />
           <h1 className="text-3xl font-bold text-gray-900">
-            Uma Mensagem Inspirada para Você
+            Recados da Bíblia
           </h1>
-          <h2 className="text-xl font-bold text-gray-900">
-            Lido por{" "}
-            <a
-              href="https://elevenlabs.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 hover:text-blue-600"
-            >
-              ElevenLabs
-            </a>
-          </h2>
+          <h3 className="text-xl font-bold text-gray-900">
+            The God's Voice na voz de Cid Moreira
+          </h3>
+          <p className="text-gray-600">
+            Uma mensagem de <span className="font-semibold">{note.sender_name}</span> para <span className="font-semibold">{note.receiver_name}</span>
+          </p>
         </div>
 
         <div className="space-y-6">
@@ -108,6 +110,43 @@ const Note = () => {
               </audio>
             </div>
           )}
+        </div>
+
+        <div className="pt-8 border-t text-center space-y-6">          
+          <a 
+            href="https://elevenreader.io" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-block hover:opacity-80 transition-opacity"
+          >
+            <img 
+              src="/elevenlabs-logo-black.svg" 
+              alt="ElevenLabs" 
+              className="h-6 w-auto"
+            />
+          </a>
+          <ul className="flex items-center justify-center gap-x-8">
+            <li>
+              <a
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-black text-white px-6 py-2 hover:bg-gray-800 transition-colors"
+                href="https://play.google.com/store/apps/details?id=io.elevenlabs.readerapp"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Baixar para Android
+              </a>
+            </li>
+            <li>
+              <a
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-black text-white px-6 py-2 hover:bg-blue-700 transition-colors"
+                href="https://apps.apple.com/us/app/elevenlabs-reader-ai-audio/id6479373050"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Baixar para iOS
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

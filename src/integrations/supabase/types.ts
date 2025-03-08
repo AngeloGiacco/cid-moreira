@@ -9,26 +9,38 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      love_notes: {
+      messages: {
         Row: {
-          audio_url: string | null
+          audio_url: string
           created_at: string
           id: string
           message: string
+          receiver_email: string | null
+          receiver_name: string
+          sender_email: string | null
+          sender_name: string
           share_id: string
         }
         Insert: {
-          audio_url?: string | null
+          audio_url: string
           created_at?: string
           id?: string
           message: string
+          receiver_email?: string | null
+          receiver_name: string
+          sender_email?: string | null
+          sender_name: string
           share_id?: string
         }
         Update: {
-          audio_url?: string | null
+          audio_url?: string
           created_at?: string
           id?: string
           message?: string
+          receiver_email?: string | null
+          receiver_name?: string
+          sender_email?: string | null
+          sender_name?: string
           share_id?: string
         }
         Relationships: []

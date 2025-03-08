@@ -92,11 +92,16 @@ const Index = () => {
   const sendEmail = () => {
     if (!shareId) return;
     const shareLink = `${window.location.origin}/mensagem/${shareId}`;
+    const androidLink = "https://play.google.com/store/apps/details?id=io.elevenlabs.readerapp";
+    const iosLink = "https://apps.apple.com/us/app/elevenlabs-reader-ai-audio/id6479373050";
     const emailSubject = "Uma mensagem especial para você via The God's Voice";
     const emailBody = `Olá ${form.getValues("nomeDestinatario")},\n\n`
       + `${form.getValues("seuNome")} enviou uma mensagem especial para você através do The God's Voice, `
       + `um serviço que transforma mensagens em áudio usando tecnologia ElevenLabs.\n\n`
       + `Acesse sua mensagem aqui: ${shareLink}\n\n`
+      + `Baixe nosso aplicativo:\n`
+      + `Android: ${androidLink}\n`
+      + `iOS: ${iosLink}\n\n`
       + `Com carinho,\nThe God's Voice`;
 
     window.location.href = `mailto:${form.getValues("emailDestinatario")}`
@@ -117,40 +122,13 @@ const Index = () => {
         <div className="text-center space-y-2">
           <Heart className="w-12 h-12 text-blue-500 mx-auto" />
           <h1 className="text-3xl font-bold text-gray-900">
-            Mensagem do The God's Voice
+            Recados da Bíblia
           </h1>
+          <h3 className="text-xl font-bold text-gray-900">
+            The God’s Voice na voz de Cid Moreira
+          </h3>
           <p className="text-gray-600">
-            Preencha o formulário abaixo para enviar uma mensagem inspirada nas Palavras de Deus para um amigo querido ou parente
-          </p>
-          
-          <ul className="flex items-center justify-center gap-x-8 mt-4">
-            <li>
-              <a
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-gray-900 text-white px-6 py-2 hover:bg-gray-800 transition-colors"
-                href="https://play.google.com/store/apps/details?id=io.elevenlabs.readerapp"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Baixar para Android
-              </a>
-            </li>
-            <li>
-              <a
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
-                href="https://apps.apple.com/us/app/elevenlabs-reader-ai-audio/id6479373050"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Baixar para iOS
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
-          <p className="text-sm text-amber-800">
-            Atenção: As mensagens podem ser acessadas por qualquer pessoa
-            com o ID da nota.
+          Para enviar uma mensagem inspirada na Bíblia a um amigo querido ou a um familiar, preencha o formulário abaixo.
           </p>
         </div>
 
@@ -295,6 +273,44 @@ const Index = () => {
             </div>
           </div>
         )}
+
+        {/* Updated footer */}
+        <div className="pt-8 border-t text-center space-y-6">          
+          <a 
+            href="https://elevenreader.io" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-block hover:opacity-80 transition-opacity"
+          >
+            <img 
+              src="/elevenlabs-logo-black.svg" 
+              alt="ElevenLabs" 
+              className="h-6 w-auto"
+            />
+          </a>
+          <ul className="flex items-center justify-center gap-x-8">
+            <li>
+              <a
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-black text-white px-6 py-2 hover:bg-gray-800 transition-colors"
+                href="https://play.google.com/store/apps/details?id=io.elevenlabs.readerapp"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Baixar para Android
+              </a>
+            </li>
+            <li>
+              <a
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-black text-white px-6 py-2 hover:bg-blue-700 transition-colors"
+                href="https://apps.apple.com/us/app/elevenlabs-reader-ai-audio/id6479373050"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Baixar para iOS
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

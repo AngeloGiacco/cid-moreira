@@ -234,7 +234,7 @@ const Index = () => {
             {isGenerating ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Gerando...
+                {setTimeout(() => "Gerando...", 8000) ? "Só mais um pouco..." : "Gerando..."}
               </>
             ) : (
               "Gerar Mensagem"

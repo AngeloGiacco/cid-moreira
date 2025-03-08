@@ -49,6 +49,10 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* New custom colors */
+    --primary-accent: 215 100% 50%;
+    --message-bg: 210 50% 98%;
   }
 
   .dark {
@@ -87,6 +91,10 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* New custom colors for dark mode */
+    --primary-accent: 215 100% 60%;
+    --message-bg: 215 30% 15%;
   }
 }
 
@@ -97,7 +105,52 @@
 
   body {
     @apply bg-background text-foreground min-h-screen;
-    background-image: linear-gradient(to bottom right, #EFF6FF, #FAF5FF);
+    background-color: #f8f9fa;
     background-attachment: fixed;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .bg-texture {
+    @apply bg-background;
+    background-attachment: fixed;
+  }
+
+  .bg-message {
+    background-color: hsl(var(--message-bg));
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+
+  .shadow-soft {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  }
+
+  .audio-container {
+    @apply rounded-md overflow-hidden border border-border/50 bg-background/80;
+  }
+
+  .audio-player {
+    @apply h-10;
+  }
+
+  .audio-player::-webkit-media-controls-panel {
+    @apply bg-background;
+  }
+
+  .audio-player::-webkit-media-controls-play-button {
+    @apply text-primary-accent;
+  }
+
+  .share-button {
+    @apply border-border/50 text-primary/80 hover:text-primary hover:bg-accent/50 transition-colors;
+  }
+
+  .download-button {
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md px-4 py-1.5 text-xs font-medium bg-primary/90 text-primary-foreground hover:bg-primary/80 transition-colors;
+  }
+
+  .text-primary-accent {
+    color: hsl(var(--primary-accent));
   }
 }

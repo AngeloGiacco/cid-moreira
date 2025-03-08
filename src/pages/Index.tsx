@@ -112,28 +112,30 @@ const Index = () => {
   } = form;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
-      <div className="w-full max-w-4xl p-8 space-y-6 bg-white rounded-xl shadow-lg">
-        <div className="text-center space-y-2">
-          <Heart className="w-12 h-12 text-blue-500 mx-auto" />
-          <h1 className="text-3xl font-bold text-gray-900">
+    <div className="min-h-screen flex items-center justify-center bg-texture">
+      <div className="w-full max-w-4xl p-10 space-y-10 bg-card rounded-lg shadow-soft">
+        <div className="text-center space-y-3">
+          <div className="flex justify-center">
+            <Heart className="w-8 h-8 text-primary-accent opacity-80" />
+          </div>
+          <h1 className="text-3xl font-serif text-primary">
             Recados da Bíblia
           </h1>
-          <h3 className="text-xl font-bold text-gray-900">
+          <h3 className="text-lg font-medium text-primary/80">
             The God's Voice na voz de Cid Moreira
           </h3>
-          <p className="text-gray-600">
-          Para enviar uma mensagem inspirada na Bíblia a um amigo querido ou a um familiar, preencha o formulário abaixo.
+          <p className="text-muted-foreground mt-4">
+            Para enviar uma mensagem inspirada na Bíblia a um amigo querido ou a um familiar, preencha o formulário abaixo.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Seu Nome</label>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-primary/90">Seu Nome</label>
               <input
                 {...register("seuNome", { required: "Por favor, insira seu nome" })}
-                className="w-full rounded-md border border-gray-300 p-2"
+                className="w-full rounded-md border border-border p-2 bg-message"
                 placeholder="Seu nome completo"
               />
               {errors.seuNome && (
@@ -142,7 +144,7 @@ const Index = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Seu E-mail</label>
+              <label className="text-sm font-medium text-primary/90">Seu E-mail</label>
               <input
                 {...register("seuEmail", { 
                   required: "Por favor, insira seu e-mail",
@@ -151,7 +153,7 @@ const Index = () => {
                     message: "E-mail inválido"
                   }
                 })}
-                className="w-full rounded-md border border-gray-300 p-2"
+                className="w-full rounded-md border border-border p-2 bg-message"
                 placeholder="seu@email.com"
               />
               {errors.seuEmail && (
@@ -160,10 +162,10 @@ const Index = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Nome do Destinatário</label>
+              <label className="text-sm font-medium text-primary/90">Nome do Destinatário</label>
               <input
                 {...register("nomeDestinatario", { required: "Por favor, insira o nome do destinatário" })}
-                className="w-full rounded-md border border-gray-300 p-2"
+                className="w-full rounded-md border border-border p-2 bg-message"
                 placeholder="Nome do destinatário"
               />
               {errors.nomeDestinatario && (
@@ -172,7 +174,7 @@ const Index = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">E-mail do Destinatário</label>
+              <label className="text-sm font-medium text-primary/90">E-mail do Destinatário</label>
               <input
                 {...register("emailDestinatario", {
                   required: "Por favor, insira o e-mail do destinatário",
@@ -181,7 +183,7 @@ const Index = () => {
                     message: "E-mail inválido"
                   }
                 })}
-                className="w-full rounded-md border border-gray-300 p-2"
+                className="w-full rounded-md border border-border p-2 bg-message"
                 placeholder="destinatario@email.com"
               />
               {errors.emailDestinatario && (
@@ -190,11 +192,11 @@ const Index = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-sm font-medium text-primary/90">
                 Tipos de Passagens Bíblicas
               </label>
               <Select onValueChange={(value) => setValue("tipoPassagem", value)}>
-                <SelectTrigger>
+                <SelectTrigger className="bg-message border-border">
                   <SelectValue placeholder="Escolha um tipo de passagem biblica" />
                 </SelectTrigger>
                 <SelectContent>
@@ -207,7 +209,7 @@ const Index = () => {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Sua Mensagem</label>
+            <label className="text-sm font-medium text-primary/90">Sua Mensagem</label>
             <Textarea
               {...register("mensagem", {
                 required: "Por favor, escreva uma mensagem",
@@ -217,7 +219,7 @@ const Index = () => {
                 },
               })}
               placeholder="Escreva sua mensagem pessoal aqui..."
-              className="min-h-[150px] resize-none"
+              className="min-h-[150px] resize-none bg-message border-border"
             />
             {errors.mensagem && (
               <p className="text-sm text-red-500">{errors.mensagem.message}</p>
@@ -226,7 +228,7 @@ const Index = () => {
 
           <Button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700"
+            className="w-full bg-black hover:bg-gray-800 text-white"
             disabled={isGenerating}
           >
             {isGenerating ? (
@@ -241,45 +243,52 @@ const Index = () => {
         </form>
 
         {shareId && audioUrl && (
-          <div className="space-y-4 pt-4 border-t">
-            <audio controls className="w-full">
-              <source src={audioUrl} type="audio/mpeg" />
-              Seu navegador não suporta o elemento de áudio.
-            </audio>
+          <div className="space-y-6 pt-6 border-t border-border/50">
+            <div className="space-y-3">
+              <p className="text-xs uppercase tracking-wider text-center text-muted-foreground font-medium">
+                Ouça esta mensagem
+              </p>
+              <div className="audio-container">
+                <audio controls className="w-full audio-player">
+                  <source src={audioUrl} type="audio/mpeg" />
+                  Seu navegador não suporta o elemento de áudio.
+                </audio>
+              </div>
+            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <Button
                 onClick={copyShareLink}
                 variant="outline"
-                className="w-full"
+                className="w-full share-button"
               >
-                <Share2 className="mr-2" />
+                <Share2 className="mr-2 h-4 w-4 opacity-70" />
                 Copiar Link
               </Button>
 
               <Button
                 onClick={sendEmail}
                 variant="outline"
-                className="w-full"
+                className="w-full share-button"
               >
-                <Mail className="mr-2" />
+                <Mail className="mr-2 h-4 w-4 opacity-70" />
                 Enviar por E-mail
               </Button>
 
               <Button
                 onClick={shareOnWhatsApp}
                 variant="outline"
-                className="w-full"
+                className="w-full share-button"
               >
-                <MessageCircle className="mr-2" />
-                Compartilhar no WhatsApp
+                <MessageCircle className="mr-2 h-4 w-4 opacity-70" />
+                Compartilhar
               </Button>
             </div>
           </div>
         )}
 
         {/* Updated footer */}
-        <div className="pt-8 border-t text-center space-y-6">          
+        <div className="pt-8 border-t border-border/50 text-center space-y-6">          
           <a 
             href="https://elevenreader.io" 
             target="_blank" 
@@ -289,13 +298,13 @@ const Index = () => {
             <img 
               src="/elevenlabs-logo-black.svg" 
               alt="ElevenLabs" 
-              className="h-6 w-auto"
+              className="h-5 w-auto"
             />
           </a>
-          <ul className="flex items-center justify-center gap-x-8">
+          <ul className="flex flex-wrap items-center justify-center gap-4">
             <li>
               <a
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-black text-white px-6 py-2 hover:bg-gray-800 transition-colors"
+                className="download-button"
                 href="https://play.google.com/store/apps/details?id=io.elevenlabs.readerapp"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -305,7 +314,7 @@ const Index = () => {
             </li>
             <li>
               <a
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-black text-white px-6 py-2 hover:bg-blue-700 transition-colors"
+                className="download-button"
                 href="https://apps.apple.com/us/app/elevenlabs-reader-ai-audio/id6479373050"
                 target="_blank"
                 rel="noopener noreferrer"

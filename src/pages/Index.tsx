@@ -278,7 +278,7 @@ const Index = () => {
               <Button
                 onClick={shareOnWhatsApp}
                 variant="outline"
-                className="w-full share-button text-green-600 border-green-600 hover:bg-green-500 hover:text-white"
+                className="w-full share-button text-white bg-green-500 border-green-500 hover:bg-green-400 hover:text-white"
               >
                 <MessageCircle className="mr-2 h-4 w-4 opacity-70" />
                 Compartilhar no WhatsApp

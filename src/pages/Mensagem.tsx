@@ -170,7 +170,7 @@ const Note = () => {
               className="w-full share-button"
             >
               <MessageCircle className="mr-2 h-4 w-4 opacity-70" />
-              Compartilhar
+              Compartilhar no WhatsApp
             </Button>
           </div>
 

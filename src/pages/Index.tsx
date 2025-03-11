@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { copyToClipboard, shareViaEmail, shareViaWhatsApp } from "@/utils/sharing";
+import { Footer } from "@/components/Footer";
 
 interface FormData {
   seuNome: string;           // maps to sender_name
@@ -130,7 +131,7 @@ const Index = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-primary/90">Telefone</label>
+              <label className="text-sm font-medium text-primary/90">Seu Telefone</label>
               <input
                 {...register("telefone", { 
                   required: "Por favor, insira seu telefone",
@@ -246,43 +247,7 @@ const Index = () => {
           </div>
         )}
 
-        {/* Updated footer */}
-        <div className="pt-8 border-t border-border/50 text-center space-y-6">          
-          <a 
-            href="https://elevenreader.io" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-block hover:opacity-80 transition-opacity"
-          >
-            <img 
-              src="/elevenlabs-logo-black.svg" 
-              alt="ElevenLabs" 
-              className="h-5 w-auto"
-            />
-          </a>
-          <ul className="flex flex-wrap items-center justify-center gap-4">
-            <li>
-              <a
-                className="download-button"
-                href="https://play.google.com/store/apps/details?id=io.elevenlabs.readerapp"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Baixar para Android
-              </a>
-            </li>
-            <li>
-              <a
-                className="download-button"
-                href="https://apps.apple.com/us/app/elevenlabs-reader-ai-audio/id6479373050"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Baixar para iOS
-              </a>
-            </li>
-          </ul>
-        </div>
+        <Footer />
       </div>
     </div>
   );

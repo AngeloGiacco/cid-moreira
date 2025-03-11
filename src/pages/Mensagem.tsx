@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { copyToClipboard, shareViaEmail, shareViaWhatsApp } from "@/utils/sharing";
+import { Footer } from "@/components/Footer";
 
 interface Note {
   message: string;
@@ -157,43 +158,7 @@ const Note = () => {
             </a>
           </div>
           
-          <div className="space-y-6 pt-4">
-            <div className="flex justify-center">
-              <a 
-                href="https://elevenreader.io" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <img 
-                  src="/elevenlabs-logo-black.svg" 
-                  alt="ElevenLabs" 
-                  className="h-5 w-auto"
-                />
-              </a>
-            </div>
-            <ul className="flex flex-wrap items-center justify-center gap-4">
-              <li>
-                <a
-                  className="download-button"
-                  href="https://play.google.com/store/apps/details?id=io.elevenlabs.readerapp"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Baixar para Android
-                </a>
-              </li>
-              <li>
-                <a
-                  className="download-button"
-                  href="https://apps.apple.com/us/app/elevenlabs-reader-ai-audio/id6479373050"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Baixar para iOS
-                </a>
-              </li>
-            </ul>
-          </div>
+          <Footer />
         </div>
       </div>
     </div>

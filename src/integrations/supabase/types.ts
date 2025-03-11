@@ -15,9 +15,8 @@ export type Database = {
           created_at: string
           id: string
           message: string
-          receiver_email: string | null
+          phone_number: string | null
           receiver_name: string
-          sender_email: string | null
           sender_name: string
           share_id: string
         }
@@ -26,9 +25,8 @@ export type Database = {
           created_at?: string
           id?: string
           message: string
-          receiver_email?: string | null
+          phone_number?: string | null
           receiver_name: string
-          sender_email?: string | null
           sender_name: string
           share_id?: string
         }
@@ -37,9 +35,8 @@ export type Database = {
           created_at?: string
           id?: string
           message?: string
-          receiver_email?: string | null
+          phone_number?: string | null
           receiver_name?: string
-          sender_email?: string | null
           sender_name?: string
           share_id?: string
         }

@@ -23,8 +23,7 @@ async function get_text_to_generate(message: {
   sender: string;
   receiver: string;
   passageType: string;
-  senderEmail: string;
-  receiverEmail: string;
+  phone: string;
 }) {
   const openai_key = Deno.env.get("OPENAI_API_KEY");
   
@@ -125,8 +124,7 @@ serve(async (req) => {
         message: message.message,
         sender_name: message.sender,
         receiver_name: message.receiver,
-        sender_email: message.senderEmail,
-        receiver_email: message.receiverEmail,
+        phone_number: message.phone,
         audio_url: publicUrl.publicUrl,
       })
       .select()

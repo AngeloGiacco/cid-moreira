@@ -145,41 +145,15 @@ const Note = () => {
         </div>
 
         <div className="pt-8 border-t border-border/50 space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <Button
-              onClick={handleCopyLink}
-              variant="outline"
-              className="w-full share-button"
-            >
-              <Share2 className="mr-2 h-4 w-4 opacity-70" />
-              Copiar Link
-            </Button>
-
-            <Button
-              onClick={handleEmailShare}
-              variant="outline"
-              className="w-full share-button"
-            >
-              <Mail className="mr-2 h-4 w-4 opacity-70" />
-              Enviar por E-mail
-            </Button>
-
-            <Button
-              onClick={handleWhatsAppShare}
-              variant="outline"
-              className="w-full share-button text-white bg-green-500 border-green-500 hover:bg-green-400 hover:text-white"
-            >
-              <MessageCircle className="mr-2 h-4 w-4 opacity-70" />
-              Compartilhar no WhatsApp
-            </Button>
-          </div>
-
-          <div className="flex justify-center">
+          <div className="text-center space-y-6">
+            <p className="text-lg text-primary/80 font-medium">
+              Quer enviar uma mensagem para alguém especial?
+            </p>
             <a 
               href="/"
-              className="text-sm text-primary-accent hover:text-primary-accent/80 transition-colors font-medium"
+              className="inline-block px-8 py-4 bg-primary-accent hover:bg-primary-accent/90 rounded-lg transition-all duration-200 font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
             >
-              Criar nova mensagem
+              ✨ Criar minha mensagem agora!
             </a>
           </div>
           

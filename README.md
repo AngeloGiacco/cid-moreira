@@ -18,6 +18,14 @@ pnpm i
 pnpm run dev
 ```
 
+generate types with 
+
+```
+supabase gen types --project-id pjeinusfyxgbkahsmpmk typescript > src/integrations/supabase/types.ts
+```
+
+
+
 ## What technologies are used for this project?
 
 This project is built with .

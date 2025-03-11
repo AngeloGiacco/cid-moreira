@@ -15,12 +15,11 @@ import {
 import { copyToClipboard, shareViaEmail, shareViaWhatsApp } from "@/utils/sharing";
 
 interface FormData {
-  seuNome: string;
-  seuEmail: string;
-  nomeDestinatario: string;
-  emailDestinatario: string;
-  mensagem: string;
-  tipoPassagem: string;
+  seuNome: string;           // maps to sender_name
+  telefone: string;          // maps to phone_number
+  nomeDestinatario: string;  // maps to receiver_name
+  mensagem: string;          // maps to message
+  tipoPassagem: string;      // used for AI generation
 }
 
 const Index = () => {
@@ -32,9 +31,8 @@ const Index = () => {
   const form = useForm<FormData>({
     defaultValues: {
       seuNome: "",
-      seuEmail: "",
+      telefone: "",
       nomeDestinatario: "",
-      emailDestinatario: "",
       mensagem: "",
       tipoPassagem: "",
     },
@@ -44,15 +42,13 @@ const Index = () => {
     try {
       setIsGenerating(true);
 
-      // Send all form data to the generate-voice function
       const response = await supabase.functions.invoke("generate-voice", {
         body: {
           message: data.mensagem,
           sender: data.seuNome,
           receiver: data.nomeDestinatario,
           passageType: data.tipoPassagem,
-          senderEmail: data.seuEmail,
-          receiverEmail: data.emailDestinatario
+          phone: data.telefone
         },
       });
 
@@ -89,19 +85,9 @@ const Index = () => {
     });
   };
 
-  const sendEmail = () => {
-    if (!shareId) return;
-    shareViaEmail(
-      shareId,
-      form.getValues("emailDestinatario"),
-      form.getValues("nomeDestinatario"),
-      form.getValues("seuNome")
-    );
-  };
-
   const shareOnWhatsApp = () => {
     if (!shareId) return;
-    shareViaWhatsApp(shareId, form.getValues("seuNome"));
+    shareViaWhatsApp(shareId, form.getValues("telefone"));
   };
 
   const {
@@ -144,20 +130,20 @@ const Index = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-primary/90">Seu E-mail</label>
+              <label className="text-sm font-medium text-primary/90">Telefone</label>
               <input
-                {...register("seuEmail", { 
-                  required: "Por favor, insira seu e-mail",
+                {...register("telefone", { 
+                  required: "Por favor, insira seu telefone",
                   pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "E-mail inválido"
+                    value: /^\+?[1-9]\d{1,14}$/,
+                    message: "Telefone inválido"
                   }
                 })}
                 className="w-full rounded-md border border-border p-2 bg-message"
-                placeholder="seu@email.com"
+                placeholder="+5511999999999"
               />
-              {errors.seuEmail && (
-                <p className="text-sm text-red-500">{errors.seuEmail.message}</p>
+              {errors.telefone && (
+                <p className="text-sm text-red-500">{errors.telefone.message}</p>
               )}
             </div>
 
@@ -170,24 +156,6 @@ const Index = () => {
               />
               {errors.nomeDestinatario && (
                 <p className="text-sm text-red-500">{errors.nomeDestinatario.message}</p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-primary/90">E-mail do Destinatário</label>
-              <input
-                {...register("emailDestinatario", {
-                  required: "Por favor, insira o e-mail do destinatário",
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "E-mail inválido"
-                  }
-                })}
-                className="w-full rounded-md border border-border p-2 bg-message"
-                placeholder="destinatario@email.com"
-              />
-              {errors.emailDestinatario && (
-                <p className="text-sm text-red-500">{errors.emailDestinatario.message}</p>
               )}
             </div>
 
@@ -264,15 +232,6 @@ const Index = () => {
               >
                 <Share2 className="mr-2 h-4 w-4 opacity-70" />
                 Copiar Link
-              </Button>
-
-              <Button
-                onClick={sendEmail}
-                variant="outline"
-                className="w-full share-button"
-              >
-                <Mail className="mr-2 h-4 w-4 opacity-70" />
-                Enviar por E-mail
               </Button>
 
               <Button

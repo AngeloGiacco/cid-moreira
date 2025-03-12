@@ -60,7 +60,7 @@ export const Footer: FC = () => {
       </ul>
 
       {/* App Screenshots Grid/Slideshow */}
-      <div className="relative w-full max-w-5xl mx-auto mb-8">
+      <div className="relative w-full mb-8">
         <div className="hidden md:grid grid-cols-4 gap-4 h-[400px]">
           {images.map((image, index) => (
             <img
@@ -72,7 +72,7 @@ export const Footer: FC = () => {
           ))}
         </div>
         
-        <div className="md:hidden relative w-full max-w-md mx-auto h-[400px]">
+        <div className="md:hidden relative w-screen -mx-4 h-[500px]">
           {images.map((image, index) => (
             <img
               key={image}

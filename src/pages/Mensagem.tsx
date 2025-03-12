@@ -109,7 +109,7 @@ const Note = () => {
             Recados da Bíblia
           </h1>
           <h3 className="text-lg font-medium text-primary/80">
-            The God's Voice na voz de Cid Moreira
+            The God's Voice na voz eterna de Cid Moreira
           </h3>
           <div className="text-sm text-muted-foreground mt-4">
             <span className="font-medium text-primary/90">{note.sender_name}</span>
@@ -149,6 +149,7 @@ const Note = () => {
           <div className="text-center space-y-6">
             <p className="text-lg text-primary/80 font-medium">
               Quer enviar uma mensagem para alguém especial?
+              <span className="block mt-1 text-primary-accent">É totalmente grátis!</span>
             </p>
             <a 
               href="/"

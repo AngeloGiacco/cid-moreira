@@ -109,10 +109,10 @@ const Index = () => {
             Recados da Bíblia
           </h1>
           <h3 className="text-lg font-medium text-primary/80">
-            The God's Voice na voz de Cid Moreira
+            The God's Voice na voz eterna de Cid Moreira
           </h3>
           <p className="text-muted-foreground mt-4">
-            Para enviar uma mensagem inspirada na Bíblia a um amigo querido ou a um familiar, preencha o formulário abaixo.
+            Para enviar uma mensagem inspirada na Bíblia a um amigo querido ou a um familiar, preencha o formulário abaixo. É totalmente gratuito!
           </p>
         </div>
 

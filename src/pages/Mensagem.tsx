@@ -102,8 +102,12 @@ const Note = () => {
     <div className="min-h-screen flex items-center justify-center bg-texture">
       <div className="w-full max-w-3xl p-10 space-y-10 bg-card rounded-lg shadow-soft">
         <div className="text-center space-y-3">
-          <div className="flex justify-center">
-            <Heart className="w-8 h-8 text-primary-accent opacity-80" />
+          <div className="flex flex-col items-center gap-4">
+            <img 
+              src="/cidmoreira.png" 
+              alt="Cid Moreira" 
+              className="w-40 h-40 rounded-full object-cover border-2 border-primary/20 object-top"
+            />
           </div>
           <h1 className="text-3xl font-serif text-primary">
             Recados da Bíblia

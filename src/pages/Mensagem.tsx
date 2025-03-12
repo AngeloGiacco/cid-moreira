@@ -106,7 +106,7 @@ const Note = () => {
             <img 
               src="/cidmoreira.png" 
               alt="Cid Moreira" 
-              className="w-40 h-40 rounded-full object-cover border-2 border-primary/20 object-top"
+              className="w-32 h-32 rounded-full object-cover border-2 border-primary/20 object-top"
             />
           </div>
           <h1 className="text-3xl font-serif text-primary">
@@ -150,16 +150,16 @@ const Note = () => {
         </div>
 
         <div className="pt-8 border-t border-border/50 space-y-8">
-          <div className="text-center space-y-6">
-            <p className="text-lg text-primary/80 font-medium">
+          <div className="text-center space-y-4">
+            <p className="text-lg text-primary/80">
               Quer enviar uma mensagem para alguém especial?
-              <span className="block mt-1 text-primary-accent">É totalmente grátis!</span>
+              <span className="block mt-2 text-lg text-primary">Totalmente grátis</span>
             </p>
             <a 
               href="/"
-              className="inline-block px-8 py-4 bg-primary-accent hover:bg-primary-accent/90 rounded-lg transition-all duration-200 font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
+              className="inline-flex items-center px-8 py-3.5 bg-primary-accent hover:bg-primary-accent/90 rounded-md transition-colors duration-200 font-medium shadow-[0_2px_8px_-2px_rgba(0,0,0,0.15)] hover:shadow-[0_3px_12px_-2px_rgba(0,0,0,0.2)]"
             >
-              ✨ Criar minha mensagem agora!
+              ✨ Criar minha mensagem agora! 
             </a>
           </div>
           

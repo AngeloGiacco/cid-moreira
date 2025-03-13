@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { copyToClipboard, shareViaEmail, shareViaWhatsApp } from "@/utils/sharing";
+import { copyToClipboard, shareViaWhatsApp } from "@/utils/sharing";
 import { Footer } from "@/components/Footer";
 
 interface FormData {
@@ -88,7 +88,7 @@ const Index = () => {
 
   const shareOnWhatsApp = () => {
     if (!shareId) return;
-    shareViaWhatsApp(shareId, form.getValues("telefone"));
+    shareViaWhatsApp(shareId, form.getValues("seuNome"));
   };
 
   const {

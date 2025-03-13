@@ -4,7 +4,7 @@ import { Heart, Share2, Mail, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
-import { copyToClipboard, shareViaEmail, shareViaWhatsApp } from "@/utils/sharing";
+import { copyToClipboard } from "@/utils/sharing";
 import { Footer } from "@/components/Footer";
 
 interface Note {
@@ -60,16 +60,6 @@ const Note = () => {
       title: "Link copiado!",
       description: "Compartilhe este link com seus amigos.",
     });
-  };
-
-  const handleEmailShare = () => {
-    if (!shareId) return;
-    shareViaEmail(shareId);
-  };
-
-  const handleWhatsAppShare = () => {
-    if (!shareId) return;
-    shareViaWhatsApp(shareId);
   };
 
   if (isLoading) {

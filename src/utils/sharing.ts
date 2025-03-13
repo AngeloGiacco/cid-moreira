@@ -36,22 +36,6 @@ export const generateEmailContent = (
   return { subject, body };
 };
 
-export const shareViaEmail = (
-  shareId: string,
-  receiverEmail?: string,
-  receiverName?: string,
-  senderName?: string
-) => {
-  const shareLink = generateShareLink(shareId);
-  const { subject, body } = generateEmailContent(shareLink, receiverName, senderName);
-  
-  const mailtoUrl = `mailto:${receiverEmail || ''}`
-    + `?subject=${encodeURIComponent(subject)}`
-    + `&body=${encodeURIComponent(body)}`;
-    
-  window.location.href = mailtoUrl;
-};
-
 export const shareViaWhatsApp = (shareId: string, senderName?: string) => {
   const shareLink = generateShareLink(shareId);
   const message = senderName

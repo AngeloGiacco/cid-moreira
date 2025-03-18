@@ -170,7 +170,10 @@ const Index = () => {
                 <label className="text-sm font-medium text-primary/90">
                   Tipos de Passagens Bíblicas
                 </label>
-                <Select onValueChange={(value) => setValue("tipoPassagem", value)}>
+                <Select 
+                  onValueChange={(value) => setValue("tipoPassagem", value)}
+                  {...register("tipoPassagem", { required: "Por favor, escolha um tipo de passagem" })}
+                >
                   <SelectTrigger className="bg-message border-border">
                     <SelectValue placeholder="Escolha um tipo de passagem biblica" />
                   </SelectTrigger>
@@ -180,6 +183,9 @@ const Index = () => {
                     <SelectItem value="versiculo">Versículo Bíblico</SelectItem>
                   </SelectContent>
                 </Select>
+                {errors.tipoPassagem && (
+                  <p className="text-sm text-red-500">{errors.tipoPassagem.message}</p>
+                )}
               </div>
             </div>
 

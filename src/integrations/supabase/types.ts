@@ -13,6 +13,7 @@ export type Database = {
         Row: {
           audio_url: string
           created_at: string
+          generated_text: string
           id: string
           message: string
           phone_number: string | null
@@ -23,6 +24,7 @@ export type Database = {
         Insert: {
           audio_url: string
           created_at?: string
+          generated_text?: string
           id?: string
           message: string
           phone_number?: string | null
@@ -33,6 +35,7 @@ export type Database = {
         Update: {
           audio_url?: string
           created_at?: string
+          generated_text?: string
           id?: string
           message?: string
           phone_number?: string | null

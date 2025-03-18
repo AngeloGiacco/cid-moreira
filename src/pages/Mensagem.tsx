@@ -12,6 +12,7 @@ interface Note {
   audio_url: string | null;
   sender_name: string;
   receiver_name: string;
+  generated_text: string | null;
 }
 
 const Note = () => {
@@ -29,7 +30,7 @@ const Note = () => {
         console.log("Fetching note for shareId:", shareId);
         const { data, error } = await supabase
           .from("messages")
-          .select("message, audio_url, sender_name, receiver_name")
+          .select("message, audio_url, sender_name, receiver_name, generated_text")
           .eq("share_id", shareId)
           .single();
         console.log("Supabase response:", { data, error });
@@ -136,7 +137,7 @@ const Note = () => {
                   onClick={() => setShowTranscript(!showTranscript)}
                   className="text-primary hover:text-primary-accent transition-colors"
                 >
-                  {showTranscript ? "Ocultar mensagem" : "Ver mensagem"}
+                  {showTranscript ? "Ocultar transcrição" : "Ver transcrição"}
                 </Button>
               </div>
             </div>
@@ -145,7 +146,7 @@ const Note = () => {
           {note.audio_url && showTranscript && (
             <div className="p-8 bg-message rounded-md relative">
               <p className="text-primary/90 text-lg leading-relaxed font-serif">
-                "{note.message}"
+                "{note.generated_text}"
               </p>
               <div className="absolute top-3 left-3 text-3xl text-primary/20 font-serif">"</div>
               <div className="absolute bottom-3 right-3 text-3xl text-primary/20 font-serif">"</div>
@@ -155,7 +156,7 @@ const Note = () => {
           {!note.audio_url && (
             <div className="p-8 bg-message rounded-md relative">
               <p className="text-primary/90 text-lg leading-relaxed font-serif">
-                "{note.message}"
+                "{note.generated_text}"
               </p>
               <div className="absolute top-3 left-3 text-3xl text-primary/20 font-serif">"</div>
               <div className="absolute bottom-3 right-3 text-3xl text-primary/20 font-serif">"</div>

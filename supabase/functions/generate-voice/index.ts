@@ -126,6 +126,7 @@ serve(async (req) => {
         receiver_name: message.receiver,
         phone_number: message.phone,
         audio_url: publicUrl.publicUrl,
+        generated_text: generated_text,
       })
       .select()
       .single();

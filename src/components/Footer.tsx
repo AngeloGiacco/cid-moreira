@@ -19,27 +19,41 @@ export const Footer: FC = () => {
   }, []);
 
   return (
-    <div className="pt-8 border-t border-border/50 text-center space-y-6">
-      <a 
-        href="https://elevenreader.io" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="inline-block hover:opacity-80 transition-opacity"
-      >
+    <div className="pt-4 border-t border-border/50 text-center space-y-10">
+      {/* GOL Voice and ElevenLabs logos with "powered by" text */}
+      <div className="flex flex-col items-center justify-center gap-4">
         <img 
-          src="/elevenlabs-logo-black.svg" 
-          alt="ElevenLabs" 
-          className="h-5 w-auto"
+          src="/gol-voice.png" 
+          alt="GOL Voice" 
+          className="h-24 w-auto"
         />
-      </a>
-      <p className="text-md text-muted-foreground max-w-md mx-auto">
+        
+        <div className="flex items-center gap-3">
+          <span className="text-sm">powered by</span>
+          <a 
+            href="https://elevenreader.io" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-block hover:opacity-80 transition-opacity"
+          >
+            <img 
+              src="/elevenlabs-logo-black.svg" 
+              alt="ElevenLabs" 
+              className="h-6 w-auto"
+            />
+          </a>
+        </div>
+      </div>
+      
+      <p className="text-md text-muted-foreground max-w-md mx-auto my-6">
         Transforme qualquer livro, artigo, PDF, newsletter ou texto em áudio com narração ultra realista em um único aplicativo
       </p>
+      
       {/* Download Buttons */}
-      <ul className="flex flex-wrap items-center justify-center gap-4">
+      <ul className="flex flex-wrap items-center justify-center gap-6 my-8">
         <li>
           <a
-            className="download-button inline-flex items-center gap-2"
+            className="download-button inline-flex items-center gap-2 px-6 py-3"
             href="https://play.google.com/store/apps/details?id=io.elevenlabs.readerapp"
             target="_blank"
             rel="noopener noreferrer"
@@ -49,7 +63,7 @@ export const Footer: FC = () => {
         </li>
         <li>
           <a
-            className="download-button inline-flex items-center gap-2 text-white"
+            className="download-button inline-flex items-center gap-2 text-white px-6 py-3"
             href="https://apps.apple.com/us/app/elevenlabs-reader-ai-audio/id6479373050"
             target="_blank"
             rel="noopener noreferrer"
@@ -60,19 +74,19 @@ export const Footer: FC = () => {
       </ul>
 
       {/* App Screenshots Grid/Slideshow */}
-      <div className="relative w-full mb-8">
-        <div className="hidden md:grid grid-cols-4 gap-4 h-[400px]">
+      <div className="relative w-full my-12 mb-10">
+        <div className="hidden md:grid grid-cols-4 gap-6 h-[450px]">
           {images.map((image, index) => (
             <img
               key={image}
               src={image}
               alt={`ElevenReader App Screenshot ${index + 1}`}
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain rounded-md"
             />
           ))}
         </div>
         
-        <div className="md:hidden relative w-screen -mx-4 h-[500px]">
+        <div className="md:hidden relative w-screen -mx-4 h-[550px]">
           {images.map((image, index) => (
             <img
               key={image}

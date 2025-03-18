@@ -19,6 +19,7 @@ const Note = () => {
   const { toast } = useToast();
   const [note, setNote] = useState<Note | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showTranscript, setShowTranscript] = useState(false);
 
   useEffect(() => {
     console.log("Effect triggered, shareId:", shareId);
@@ -113,28 +114,51 @@ const Note = () => {
         </div>
 
         <div className="space-y-8">
-          <div className="p-8 bg-message rounded-md relative">
-            <p className="text-primary/90 text-lg leading-relaxed font-serif">
-              "{note.message}"
-            </p>
-            <div className="absolute top-3 left-3 text-3xl text-primary/20 font-serif">"</div>
-            <div className="absolute bottom-3 right-3 text-3xl text-primary/20 font-serif">"</div>
-          </div>
-
           {note.audio_url && (
-            <div className="space-y-3">
-              <p className="text-xs uppercase tracking-wider text-center text-muted-foreground font-medium">
-                Ouça esta mensagem
+            <div className="space-y-3 p-4 bg-message rounded-md border border-primary/20">
+              <p className="text-sm text-center text-primary font-medium">
+                Ouça a mensagem na voz de Cid Moreira
               </p>
-              <div className="audio-container">
+              <div className="audio-container bg-primary-accent/10 p-4 rounded-lg border border-primary-accent/20 shadow-inner">
                 <audio 
                   controls 
                   className="w-full audio-player"
+                  preload="metadata"
                 >
                   <source src={note.audio_url} type="audio/mpeg" />
                   Seu navegador não suporta o elemento de áudio.
                 </audio>
               </div>
+              <div className="flex justify-center mt-2">
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowTranscript(!showTranscript)}
+                  className="text-primary hover:text-primary-accent transition-colors"
+                >
+                  {showTranscript ? "Ocultar transcrição" : "Ver transcrição"}
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {note.audio_url && showTranscript && (
+            <div className="p-8 bg-message rounded-md relative">
+              <p className="text-primary/90 text-lg leading-relaxed font-serif">
+                "{note.message}"
+              </p>
+              <div className="absolute top-3 left-3 text-3xl text-primary/20 font-serif">"</div>
+              <div className="absolute bottom-3 right-3 text-3xl text-primary/20 font-serif">"</div>
+            </div>
+          )}
+
+          {!note.audio_url && (
+            <div className="p-8 bg-message rounded-md relative">
+              <p className="text-primary/90 text-lg leading-relaxed font-serif">
+                "{note.message}"
+              </p>
+              <div className="absolute top-3 left-3 text-3xl text-primary/20 font-serif">"</div>
+              <div className="absolute bottom-3 right-3 text-3xl text-primary/20 font-serif">"</div>
             </div>
           )}
         </div>
@@ -149,7 +173,7 @@ const Note = () => {
               href="/"
               className="inline-flex items-center px-8 py-3.5 bg-primary-accent hover:bg-primary-accent/90 rounded-md transition-colors duration-200 font-medium shadow-[0_2px_8px_-2px_rgba(0,0,0,0.15)] hover:shadow-[0_3px_12px_-2px_rgba(0,0,0,0.2)]"
             >
-              ✨ Criar minha mensagem agora! 
+              ✨ Crie uma mensagem clicando aqui!! 
             </a>
           </div>
           

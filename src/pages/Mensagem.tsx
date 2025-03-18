@@ -136,7 +136,7 @@ const Note = () => {
                   onClick={() => setShowTranscript(!showTranscript)}
                   className="text-primary hover:text-primary-accent transition-colors"
                 >
-                  {showTranscript ? "Ocultar transcrição" : "Ver transcrição"}
+                  {showTranscript ? "Ocultar mensagem" : "Ver mensagem"}
                 </Button>
               </div>
             </div>

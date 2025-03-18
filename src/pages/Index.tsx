@@ -125,7 +125,7 @@ const Index = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-1">
-                <label className="text-sm font-medium text-primary/90">Seu Nome</label>
+                <label className="text-sm font-medium text-primary/90">Seu Nome <span className="text-red-500">*</span></label>
                 <input
                   {...register("seuNome", { required: "Por favor, insira seu nome" })}
                   className="w-full rounded-md border border-border p-2 bg-message"
@@ -137,7 +137,7 @@ const Index = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-primary/90">Seu Telefone</label>
+                <label className="text-sm font-medium text-primary/90">Seu Telefone <span className="text-red-500">*</span> </label>
                 <input
                   {...register("telefone", { 
                     required: "Por favor, insira seu telefone",
@@ -155,7 +155,7 @@ const Index = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-primary/90">Nome do Destinatário</label>
+                <label className="text-sm font-medium text-primary/90">Nome do Destinatário <span className="text-red-500">*</span></label>
                 <input
                   {...register("nomeDestinatario", { required: "Por favor, insira o nome do destinatário" })}
                   className="w-full rounded-md border border-border p-2 bg-message"
@@ -168,7 +168,7 @@ const Index = () => {
 
               <div className="space-y-2">
                 <label className="text-sm font-medium text-primary/90">
-                  Tipos de Passagens Bíblicas
+                  Tipos de Passagens Bíblicas <span className="text-red-500">*</span>
                 </label>
                 <Select 
                   onValueChange={(value) => setValue("tipoPassagem", value)}
@@ -190,7 +190,9 @@ const Index = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-primary/90">Sua Mensagem</label>
+              <label className="text-sm font-medium text-primary/90">
+                Sua Mensagem <span className="text-red-500">*</span>
+              </label>
               <Textarea
                 {...register("mensagem", {
                   required: "Por favor, escreva uma mensagem",
@@ -199,11 +201,22 @@ const Index = () => {
                     message: "A mensagem deve ter pelo menos 10 caracteres",
                   },
                 })}
-                placeholder="Escreva sua mensagem pessoal aqui..."
-                className="min-h-[150px] resize-none bg-message border-border"
+                placeholder="Escreva sua mensagem pessoal aqui... (Mínimo 10 caracteres)"
+                className={`min-h-[150px] resize-none ${
+                  errors.mensagem ? "border-red-500 focus:ring-red-500" : "border-border"
+                } bg-message`}
               />
-              {errors.mensagem && (
-                <p className="text-sm text-red-500">{errors.mensagem.message}</p>
+              {errors.mensagem ? (
+                <p className="text-sm text-red-500 font-medium flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                  {errors.mensagem.message}
+                </p>
+              ) : (
+                <p className="text-xs text-gray-500">Mínimo de 10 caracteres para uma mensagem completa</p>
               )}
             </div>
 

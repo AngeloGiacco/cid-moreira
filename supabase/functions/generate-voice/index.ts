@@ -85,8 +85,10 @@ serve(async (req) => {
   try {
     const message = await req.json();
     
-    const generated_text = await get_text_to_generate(message);
-
+    let generated_text = await get_text_to_generate(message);
+    
+    generated_text = String(generated_text);
+        
     const audio = await client.textToSpeech.convert("FGPVPbWCfyZs3v0mukRt", {
       model_id: "eleven_multilingual_v2",
       output_format: "mp3_44100_128",
@@ -117,7 +119,6 @@ serve(async (req) => {
       .from("message_audio")
       .getPublicUrl(uploadData.path);
 
-    // Updated database insert to match types
     const { data: noteData, error: noteError } = await supabase
       .from("messages")
       .insert({

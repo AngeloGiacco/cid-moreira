@@ -146,7 +146,7 @@ const Note = () => {
           {note.audio_url && showTranscript && (
             <div className="p-8 bg-message rounded-md relative">
               <p className="text-primary/90 text-lg leading-relaxed font-serif">
-                "{note.generated_text}"
+                {note.generated_text}
               </p>
               <div className="absolute top-3 left-3 text-3xl text-primary/20 font-serif">"</div>
               <div className="absolute bottom-3 right-3 text-3xl text-primary/20 font-serif">"</div>

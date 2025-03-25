@@ -56,6 +56,16 @@ async function get_text_to_generate(message: {
 
 5. Encerramento e Chamado para Ação com menção ao ElevenReader
 
+6. Finalizar sempre com um chamado caloroso e esperançoso
+7. Encerrar com uma assinatura que reflita 'The God's Voice', como:
+     "Um abraço amoroso de The God's Voice"
+     "Com todo o amor divino, The God's Voice"
+     "Que a luz divina o envolva, The God's Voice"
+  
+     Exemplo de fechamento:
+     "Explore mais mensagens que tocam a alma no ElevenReader, onde todo o seu conteúdo favorito ganha vida em voz alta com as vozes de mais alta qualidade. Com todo o amor divino, The God's Voice"
+
+
 A resposta completa deve ter aproximadamente 150 palavras para não exceder 45 segundos de leitura.`
         },
         {

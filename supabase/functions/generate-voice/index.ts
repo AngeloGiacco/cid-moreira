@@ -66,7 +66,14 @@ async function get_text_to_generate(message: {
      "Explore mais mensagens que tocam a alma no ElevenReader, onde todo o seu conteúdo favorito ganha vida em voz alta com as vozes de mais alta qualidade. Com todo o amor divino, The God's Voice"
 
 
-A resposta completa deve ter aproximadamente 150 palavras para não exceder 45 segundos de leitura.`
+A resposta completa deve ter aproximadamente 150 palavras para não exceder 45 segundos de leitura.
+Requisitos de Saída Final:
+- NÃO inclua quaisquer instruções, comentários ou anotações internas no resultado final.
+- Certifique-se de que NENHUMA instrução ou comentário interno seja lido na gravação de áudio final.
+- Cada palavra deve estar pronta para conversão direta para texto falado.
+- A saída deve estar 100% limpa, sem notas entre colchetes, instruções ou metacomentários.
+- Trate toda a resposta como se fosse imediatamente narrada por um locutor profissional.
+- Cada linha deve estar pronta para ser falada, sem texto oculto ou de fundo visível ou audível`
         },
         {
           role: "user",
@@ -78,7 +85,7 @@ A resposta completa deve ter aproximadamente 150 palavras para não exceder 45 s
         }
       ],
       temperature: 0.7,
-      max_tokens: 500,
+      max_tokens: 2000,
     }),
   });
 

@@ -243,14 +243,14 @@ const Index = () => {
                   Ouça esta mensagem
                 </p>
                 <div className="audio-container">
-                  <audio controls className="w-full audio-player">
+                  <audio controls className="w-full audio-player" key={audioUrl}>
                     <source src={audioUrl} type="audio/mpeg" />
                     Seu navegador não suporta o elemento de áudio.
                   </audio>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <Button
                   onClick={copyShareLink}
                   variant="outline"

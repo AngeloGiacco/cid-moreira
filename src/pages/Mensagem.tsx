@@ -172,9 +172,9 @@ const Note = () => {
             </p>
             <a 
               href="/"
-              className="inline-flex items-center px-8 py-3.5 bg-primary-accent hover:bg-primary-accent/90 rounded-md transition-colors duration-200 font-medium shadow-[0_2px_8px_-2px_rgba(0,0,0,0.15)] hover:shadow-[0_3px_12px_-2px_rgba(0,0,0,0.2)]"
+              className="inline-flex items-center px-8 py-3.5 bg-primary/90 hover:bg-primary/80 text-primary-foreground rounded-md transition-colors duration-200 font-medium shadow-[0_2px_8px_-2px_rgba(0,0,0,0.15)] hover:shadow-[0_3px_12px_-2px_rgba(0,0,0,0.2)]"
             >
-              ✨ Crie uma mensagem clicando aqui!! 
+              ✨ Crie sua mensagem clicando aqui!! 
             </a>
           </div>
           

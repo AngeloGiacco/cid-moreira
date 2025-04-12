@@ -48,13 +48,23 @@ export const Footer: FC = () => {
       <p className="text-md text-muted-foreground max-w-md mx-auto my-6">
         Transforme qualquer livro, artigo, PDF, newsletter ou texto em áudio com narração ultra realista em um único aplicativo
       </p>
+
+      {/* QR Code Section */}
+      <div className="flex flex-col items-center justify-center gap-4 my-8">
+        <img 
+          src="/download_image.png" 
+          alt="Escaneie para instalar ElevenReader"
+          className="h-40 w-40"
+        />
+        <p className="text-sm text-muted-foreground">Escaneie para instalar ElevenReader</p>
+      </div>
       
       {/* Download Buttons */}
       <ul className="flex flex-wrap items-center justify-center gap-6 my-8">
         <li>
           <a
             className="download-button inline-flex items-center gap-2 px-6 py-3"
-            href="https://play.google.com/store/apps/details?id=io.elevenlabs.readerapp"
+            href="https://elevenreader.sng.link/Ec0cy/d8bg2?_dl=elevenlabs%3A%2F%2Fcollection%2Fpartner%3Acid-moreira&_smtype=3"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -64,7 +74,7 @@ export const Footer: FC = () => {
         <li>
           <a
             className="download-button inline-flex items-center gap-2 text-white px-6 py-3"
-            href="https://apps.apple.com/us/app/elevenlabs-reader-ai-audio/id6479373050"
+            href="https://elevenreader.sng.link/Ec0cy/d8bg2?_dl=elevenlabs%3A%2F%2Fcollection%2Fpartner%3Acid-moreira&_smtype=3"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -72,6 +82,7 @@ export const Footer: FC = () => {
           </a>
         </li>
       </ul>
+
 
       {/* App Screenshots Grid/Slideshow */}
       <div className="relative w-full my-12 mb-10">

@@ -40,6 +40,12 @@ const Index = () => {
   });
 
   const onSubmit = async (data: FormData) => {
+    // @ts-ignore
+    if (typeof window !== 'undefined' && window.fbq) {
+      // @ts-ignore
+      window.fbq('track', 'GenerateMessage');
+    }
+
     try {
       setIsGenerating(true);
 
